@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         elevation: 3
     },
     label: {
-        color: '#FFFFFF',
+        color: '#6c757d',
         marginTop: 7
     }
 })

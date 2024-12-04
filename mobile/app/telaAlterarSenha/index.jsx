@@ -35,7 +35,7 @@ export default TelaLogin = () => {
     }
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Altere Sua Senha</Text>
+            <Text style={styles.title}>Alterar senha</Text>
 
             <View style={styles.form}>
                 <View>
@@ -50,36 +50,45 @@ export default TelaLogin = () => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#0b071b",
-        width: '100%',
-        height: '100%',
         display: 'flex',
-        justifyContent: 'center',
+        flexDirection: 'column',
         alignItems: 'center',
-        gap: 100
+        height: '100%',
+        backgroundColor: '#F6F6F6',
     },
     title: {
         fontSize: 40,
         fontWeight: 'bold',
-        color: "#5732f1"
+        color: "#ADD84B",
+        marginTop: 80,
+        marginBottom: 5
     },
     button: {
-        backgroundColor: '#5732f1',
-        width: 250,
+        backgroundColor: '#4380CF',
+        width: 200,
         height: 40,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,
-        marginTop: 20
+        marginTop: 30,
+        marginBottom: -10
     },
     form: {
-        backgroundColor: '#160E37',
-        borderRadius: 7,
-        width: 350,
-        height: 270,
+        backgroundColor: '#F6F6F6',
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        height: 360,
+        width: 600,
+        borderRadius: 10,
+        marginTop: 60,
+        borderWidth: 2,
+        borderColor: '#d9d9d9',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+        elevation: 5, 
     }
 })

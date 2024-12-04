@@ -1,17 +1,18 @@
 import React from "react";
 import { Text, View, StyleSheet, Image, FlatList, Pressable, ScrollView } from "react-native";
-import { Link } from "@react-navigation/native"; // Certifique-se de usar react-navigation
+import { Link } from "@react-navigation/native";
 
 const playlists = [
   { id: 0.1, title: "2010's", imageUrl: "https://i.pinimg.com/736x/3e/fe/61/3efe61bc9ff52f91b19546b98924748d.jpg" },
   { id: 0.2, title: "loona complete", imageUrl: "https://i.pinimg.com/736x/66/b0/58/66b05804cefc708fca840f39ec19c39e.jpg" },
   { id: 0.3, title: "prod. yasutaka nakata", imageUrl: "https://i.pinimg.com/474x/aa/b8/17/aab8173f1716749ff0b991db07582945.jpg" },
-  { id: 0.4, title: "socorre", imageUrl: "https://i.pinimg.com/736x/ed/71/c9/ed71c9cbb5bcf91cf572ed0a5d2b919b.jpg" },
-  { id: 0.5, title: "funkão", imageUrl: "https://i.pinimg.com/736x/57/cd/ee/57cdee0de311c266dabe4ed09e9aeb1e.jpg" },
-  { id: 0.6, title: "chorei mto", imageUrl: "https://i.pinimg.com/736x/93/04/ee/9304eef15300a3d722f806069c7d715e.jpg" },
-  { id: 0.7, title: "emocionou", imageUrl: "https://i.pinimg.com/736x/88/3d/08/883d0866ce8aef9e33f0edfec9f353a3.jpg" },
-  { id: 0.8, title: "é o amor", imageUrl: "https://i.pinimg.com/736x/f3/e4/f3/f3e4f3b6d021f19710afff9a55f89c4c.jpg" },
-  { id: 0.9, title: "só tem no brasil", imageUrl: "https://i.pinimg.com/736x/43/ba/73/43ba73c0bf497967c12a03eb4cb09f32.jpg" },
+  { id: 0.4, title: "socorre", imageUrl: "https://i.pinimg.com/736x/dc/5e/15/dc5e15c5d02ff976b4fd24cf7c5e5ad1.jpg" },
+  { id: 0.5, title: "shibuya kei", imageUrl: "https://i.pinimg.com/736x/cf/94/07/cf940738c18c204b41abd52490a1484c.jpg" },
+  { id: 0.6, title: "candy cutie", imageUrl: "https://i.pinimg.com/736x/65/9f/b5/659fb5f77fefdcb128ff7bf5c8661b6d.jpg" },
+  { id: 0.7, title: "kpop nugu", imageUrl: "https://i.pinimg.com/736x/de/21/1a/de211a9e11d28bb365432a20482ce686.jpg" },
+  { id: 0.8, title: "ai que tudo", imageUrl: "https://i.pinimg.com/736x/fc/33/ed/fc33ed44e6abccd91823255e0a8812a0.jpg" },
+  { id: 0.9, title: "style savvy music", imageUrl: "https://i.pinimg.com/736x/7a/ce/04/7ace047732271f8adf6e648f30e8ae1c.jpg" },
+  { id: 0.11, title: "midwest emo", imageUrl: "https://i.pinimg.com/736x/aa/39/36/aa3936c6672646ac88a04056a289d920.jpg" },
 ];
 
 const Artistas = [
@@ -54,20 +55,20 @@ const Músicas = [
 ];
 
 const TelaHome = () => {
-  const renderPlaylist = (data, isArtist = false) => (
+  const renderPlaylist = (data, isArtist = false, type = "") => (
     <FlatList
       data={data}
       horizontal
       contentContainerStyle={{ alignItems: "flex-start" }}
       renderItem={({ item }) => (
-        <Pressable style={styles.itemCard}>
+        <Link to={`/detalhes/${type}/${item.id}`} style={styles.itemCard}>  {/* Adicionando o Link */}
           <Image
             style={[styles.itemImage, isArtist && styles.artistImage]}
             source={{ uri: item.imageUrl }}
             resizeMode="contain"
           />
           <Text style={styles.itemText}>{item.title}</Text>
-        </Pressable>
+        </Link>
       )}
       keyExtractor={(item) => item.id.toString()}
       showsHorizontalScrollIndicator={false}
@@ -78,7 +79,7 @@ const TelaHome = () => {
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Image source={require('../../assets/images/Logo1.png')} style={styles.logo} />
-        <Text style={styles.title}>Bem-vindo ao echo</Text>
+        <Text style={styles.title}>Bem-vindo ao Spotifake!</Text>
         <Link to="/telaPerfil" style={styles.profileLink}>
           <Text style={styles.profileText}>Meu Perfil</Text>
           <Image source={require('../../assets/images/userIcon.png')} style={styles.profileImage} />
@@ -86,16 +87,16 @@ const TelaHome = () => {
       </View>
 
       <Text style={styles.sectionTitle}>Músicas</Text>
-      {renderPlaylist(Músicas)}
+      {renderPlaylist(Músicas, false, "musica")}
 
       <Text style={styles.sectionTitle}>Artistas</Text>
-      {renderPlaylist(Artistas, true)}
+      {renderPlaylist(Artistas, true, "artista")}
 
       <Text style={styles.sectionTitle}>Álbuns</Text>
-      {renderPlaylist(Álbuns)}
+      {renderPlaylist(Álbuns, false, "album")}
 
       <Text style={styles.sectionTitle}>Playlists</Text>
-      {renderPlaylist(playlists)}
+      {renderPlaylist(playlists, false, "playlist")}
     </ScrollView>
   );
 };
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 50,
     marginTop: -30,
   },
   title: {
@@ -138,14 +139,16 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#ADD84B",
+    color: "#6c757d",
     marginBottom: 10,
+    gap: 200
   },
   itemCard: {
     marginRight: 15,
     alignItems: "center",
     justifyContent: "flex-start",
     width: 120,
+    marginBottom: 80
   },
   itemImage: {
     width: "90%",
